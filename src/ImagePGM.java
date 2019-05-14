@@ -42,6 +42,10 @@ public class ImagePGM{
         return maxval;
     }
 
+    public int getPixel(int i, int j){
+        return image[i][j];
+    }
+    
     public void setTailleX(int tailleX) {
         this.tailleX = tailleX;
     }
@@ -52,6 +56,11 @@ public class ImagePGM{
 
     public void setMaxval(int maxval) {
         this.maxval = maxval;
+    }
+
+
+    public void setPixel(int i, int j, int newVal) {
+        this.image[i][j] = newVal;
     }
 
     @Override
