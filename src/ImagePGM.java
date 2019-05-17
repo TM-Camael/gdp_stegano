@@ -30,6 +30,13 @@ public class ImagePGM{
 
     }
 
+    public ImagePGM(int tailleX, int tailleY, int maxval){
+        this.tailleX = tailleX;
+        this.tailleY = tailleY;
+        this.maxval = maxval;
+        image = new int[this.tailleX][this.tailleY];
+    }
+
     public int getTailleX() {
         return tailleX;
     }
@@ -78,7 +85,8 @@ public class ImagePGM{
     }
 
     public static void main(String[] args) throws Exception {
-        ImagePGM image = new ImagePGM("C:\\Users\\Utilisateur\\Desktop\\img\\dahir.pgm");
-        System.out.println(image);
+        ImagePGM image = new ImagePGM("./img/dahir.pgm");
+        Stegano stegano = new Stegano();
+        stegano.decrypt(image);
     }
 }
