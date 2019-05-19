@@ -52,7 +52,7 @@ public class ImagePGM{
     public int getPixel(int i, int j){
         return image[i][j];
     }
-    
+
     public void setTailleX(int tailleX) {
         this.tailleX = tailleX;
     }
@@ -85,7 +85,7 @@ public class ImagePGM{
     }
 
     public static void main(String[] args) throws Exception {
-        ImagePGM image = new ImagePGM("./img/dahir.pgm");
+        ImagePGM image = new ImagePGM("C:\\Users\\Utilisateur\\Desktop\\gdp_stegano\\imageCrypte.pgm");
         Stegano stegano = new Stegano();
         stegano.decrypt(image);
     }
