@@ -3,23 +3,19 @@ import java.util.Scanner;
 
 public class Stegano{
 
-    public void decrypt(ImagePGM imgCrypte) throws IOException {
+    public void decrypt(ImagePGM imgCrypte, int valmax) throws IOException {
         
         ImagePGM imgDecrypte = new ImagePGM(imgCrypte.getTailleX(), imgCrypte.getTailleY(), imgCrypte.getMaxval());
         FileWriter out;
         Scanner sc = new Scanner(System.in);
         for(int i = 0; i < imgCrypte.getTailleX(); i++){
             for(int j = 0; j < imgCrypte.getTailleY(); j++){
-                if(imgCrypte.getPixel(i, j)%2 == 0){
-                    imgDecrypte.setPixel(i, j, 0);
-                }
-                else{
-                    imgDecrypte.setPixel(i, j, 1);
-                }
+                imgDecrypte.setPixel(i, j, imgCrypte.getPixel(i, j)%valmax);
             }
         }
 
         out = null;
+        System.out.println("Entrez le nom du fichier à sauvegarder :");
         String fileName = sc.nextLine();
 
         try{
@@ -27,7 +23,7 @@ public class Stegano{
 
             out.write("P2\n");
             out.write(imgDecrypte.getTailleX()+" "+imgDecrypte.getTailleY()+"\n");       
-            out.write("1\n");
+            out.write((valmax-1)+"\n");
             for(int i = 0; i < imgDecrypte.getTailleX(); i++){
                 for(int j = 0; j < imgDecrypte.getTailleY(); j++){
                     out.write(String.valueOf(imgDecrypte.getPixel(i, j))+"\n");
@@ -45,26 +41,17 @@ public class Stegano{
 
         for(int i = 0; i < conteneur.getTailleX(); i++){
             for(int j = 0; j<conteneur.getTailleY(); j++){
-                if(imageCible.getPixel(i,j)==0){
-                    if(conteneur.getPixel(i,j)%2==1){
-                        if(conteneur.getPixel(i,j)>0) {
-                            conteneur.setPixel(i, j, conteneur.getPixel(i, j) - 1);
-                        }
-                        else{
-                            conteneur.setPixel(i, j, conteneur.getPixel(i, j) + 1);
-                        }
+                
+                int pixelACoder= imageCible.getPixel(i, j);
+                int ajustementPixel = Math.abs(pixelACoder - conteneur.getPixel(i,j)%imageCible.getMaxval());
+                if(ajustementPixel !=0){
+                    if(conteneur.getPixel(i,j)+ajustementPixel<=resultat.getMaxval()){
+                        resultat.setPixel(i, j, conteneur.getPixel(i,j)+ajustementPixel);
                     }
-                }
-                else{
-                    if(conteneur.getPixel(i,j)%2==0){
-                        if(conteneur.getPixel(i,j)>0) {
-                            conteneur.setPixel(i, j, conteneur.getPixel(i, j) - 1);
-                        }
-                        else{
-                            conteneur.setPixel(i, j, conteneur.getPixel(i, j) + 1);
-                        }
+                    else{
+                        resultat.setPixel(i, j, conteneur.getPixel(i,j)-imageCible.getMaxval()+ajustementPixel);
                     }
-                }
+                    }
             }
         }
 

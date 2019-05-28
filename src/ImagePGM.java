@@ -15,12 +15,9 @@ public class ImagePGM{
 
         sc.nextLine();
         tailleX = sc.nextInt();
-        System.out.println(tailleX);
         tailleY = Integer.parseInt(sc.next());
-        System.out.println(tailleY);
         image = new int[tailleX][tailleY];
         maxval = Integer.parseInt(sc.next());
-        System.out.println(maxval);
 
         for(int x=0;x<tailleX;x++){
             for(int y=0;y<tailleY;y++){
@@ -85,8 +82,22 @@ public class ImagePGM{
     }
 
     public static void main(String[] args) throws Exception {
-        ImagePGM image = new ImagePGM("C:\\Users\\Utilisateur\\Desktop\\gdp_stegano\\imageCrypte.pgm");
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Entrez le nom du fichier à décrypter : ");
+        String fileName = sc.nextLine();
         Stegano stegano = new Stegano();
-        stegano.decrypt(image);
-    }
+        ImagePGM image = new ImagePGM("./"+fileName);
+        System.out.println("Entrez le nombre de nuances de gris de l'image à décrypter");
+        int maxval = sc.nextInt();
+        stegano.decrypt(image, maxval);
+
+        System.out.println("Entrez le nom de l'image à crypter : ");
+        fileName = sc.next();
+        image = new ImagePGM("./"+fileName);
+        System.out.println("Entrez le nom de l'image qui servira à cacher l'image : ");
+        fileName = sc.next();
+        ImagePGM imageConteneur = new ImagePGM("./"+fileName);
+        stegano.encrypt(image, imageConteneur);
+	}
 }
