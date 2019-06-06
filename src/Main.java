@@ -57,14 +57,14 @@ public class Main{
 
                 case 4 :
                     System.out.println("Veuilez entrer le nom de l'image à coder\n");
-                    fileName = "./"+sc.nextLine();
+                    fileName = "./"+sc.next();
                     image = new ImagePGM(fileName);
                     System.out.println("Veuillez entrer le nom de l'image de base\n");
-                    fileName = "./"+sc.nextLine();
+                    fileName = "./"+sc.next();
                     imageBase = new ImagePGM(fileName);
                     image = Stegano.encrypt(image, imageBase);
                     System.out.println("Veuillez entrer le nom sous lequel sauvegarder l'image résultat :\n");
-                    fileName = "./"+sc.nextLine();
+                    fileName = "./"+sc.next();
                     image.sauvegarderImage(fileName);
                     choix = -1;
                     break;
